@@ -1,49 +1,67 @@
-class Node {
-	
+class Node {	
 	constructor(data){
 		this.data = data;
 		this.next = null;
 	}
-
 }
 
 class LinkList {
 	constructor(){
 	}
 	
-	addNodeAtStart(node){
-		debugger;
-		if(!node || !node.data || !node.next !== null) return console.log('invalid data');
+	addNodeAtEnd(data){
+		// debugger;
+		if(data == null ) { 
+			console.log('invalid data') 
+			return;
+		};
+		
+		let newNode = new Node(data);
+		
 		let current = this.head;
 		if(current){
 			while(current.next){
 				current = current.next;
 				continue;
 			}
-			current.next = node;
+			current.next = newNode;
 			
 		}else {
-			this.head = node;
+			this.head = newNode;
 		}
 		
 	}
-	addNodeAfterPosition(position, node) {
+	addNodeAtPosition(position, data) {
 		let current = this.head;
+		let newNode = new Node(data);
 		if(!current){
-			this.head = node;
+			this.head = newNode;
+			return;
 		}
-		if(this.head position === 0){
-			node.next = current;
-			this.head = node;
+		let size = 1;
+		do {
+			if(position <= 1 ){
+				newNode.next = current;
+				this.head = newNode;
+				break;
+			}else{
+				if(size+1 === position){
+					newNode.next = current.next;
+					current.next = newNode;
+					break;
+					
+				}
+				current = current.next;
+				size++;
+			}	
 		}
-		let listLength = 0;
-		while(current.next) {
-			listLength++;
-			
+		while(current.next) 
+		if(!current.next){
+			current.next = newNode;
 		}
 	}
 	
-	addNodeAtEND(node) {
+	addNodeAtStart(node) {
 		let current = this.head;
 		while(current.next) {
 			current = current.next;
@@ -67,13 +85,19 @@ class LinkList {
 linkList = new LinkList();
 
 for(let counter = 0; counter<= 10; counter++){
-	node1 = new Node(counter);
-	linkList.addNodeAtStart(node1);
+	
+	linkList.addNodeAtEnd(counter);
 }
-for(let counter = 11; counter<= 20; counter++){
-	node1 = new Node(counter);
-	linkList.addNodeAtEND(node1);
-}
+linkList.addNodeAtPosition(1,5);
+linkList.addNodeAtPosition(4,7);
+linkList.addNodeAtPosition(30,5);
+linkList.addNodeAtPosition(30,50);
+linkList.addNodeAtPosition(0,50);
+linkList.addNodeAtPosition(-1,60);
+//for(let counter = 11; counter<= 20; counter++){
+//	node1 = new Node(counter);
+//	linkList.addNodeAtEND(node1);
+//}
 linkList.iterate();
 
 
