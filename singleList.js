@@ -16,13 +16,12 @@ class LinkList {
 			return;
 		};
 		
-		let newNode = new Node(data);
+		const newNode = new Node(data);
 		
 		let current = this.head;
 		if(current){
 			while(current.next){
 				current = current.next;
-				continue;
 			}
 			current.next = newNode;
 			
@@ -33,7 +32,7 @@ class LinkList {
 	}
 	addNodeAtPosition(position, data) {
 		let current = this.head;
-		let newNode = new Node(data);
+		const newNode = new Node(data);
 		if(!current){
 			this.head = newNode;
 			return;
@@ -61,24 +60,45 @@ class LinkList {
 		}
 	}
 	
-	addNodeAtStart(node) {
+	
+	deleteNode( position ) {
 		let current = this.head;
-		while(current.next) {
+		
+		if(!current) {
+			console.log("List is empty");
+			return;
+		}
+		let counter = 1;
+		if(1 === position) {
+			this.head = current.next;
+			console.log("First Node Deleted :: " + current.data);
+			return;
+		}
+		
+		while(current.next){
+			if(counter + 1 == position) {
+				let nodeToDelete = current.next;
+				if(nodeToDelete){
+					current.next = nodeToDelete.next;
+					nodeToDelete.next = null;
+					console.log("Node Deleted :: " + nodeToDelete);
+					break;
+				}
+				
+			}
 			current = current.next;
+			
+			
 		}
-		if(!current.next) {
-			current.next = node;
-		}
+		
 	}
 	iterate(list){
 		let current = this.head;
-		while(current.next){
+		while(current){
 			console.log(current.data);
 			current = current.next;
 		}
-		if(!current.next){
-			console.log(current.data);
-		}
+		
 	}
 }
 
@@ -88,19 +108,19 @@ for(let counter = 0; counter<= 10; counter++){
 	
 	linkList.addNodeAtEnd(counter);
 }
-linkList.addNodeAtPosition(1,5);
-linkList.addNodeAtPosition(4,7);
-linkList.addNodeAtPosition(30,5);
-linkList.addNodeAtPosition(30,50);
-linkList.addNodeAtPosition(0,50);
-linkList.addNodeAtPosition(-1,60);
+//linkList.addNodeAtPosition(1,5);
+//linkList.addNodeAtPosition(4,7);
+//linkList.addNodeAtPosition(30,5);
+//linkList.addNodeAtPosition(30,50);
+//linkList.addNodeAtPosition(0,50);
+//linkList.addNodeAtPosition(-1,60);
 //for(let counter = 11; counter<= 20; counter++){
 //	node1 = new Node(counter);
 //	linkList.addNodeAtEND(node1);
 //}
 linkList.iterate();
+console.log(JSON.stringify(linkList.head));
 
-
-
-
+linkList.deleteNode(5);
+linkList.iterate();
 console.log(JSON.stringify(linkList.head));
